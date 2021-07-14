@@ -5,7 +5,6 @@ export const findEditUser = (id: number, users: User[]): User => {
   return users[ind];
 };
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export const editCurrentUser = (id: number, users: User[], data: any): User[] => {
   for (const props in data) {
     if (!data[props]) {

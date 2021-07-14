@@ -1,0 +1,15 @@
+{
+  "Save": "Save",
+  "YearOfBirth":"Year of birth",
+  "Email": "Email",
+  "Zodiac": "Zodiac",
+  "BloodType": "Blood type",
+  "Edit": "Edit",
+  "Delete": "Delete",
+  "Create": "Create",
+  "EditUser": "Edit User",
+  "CreateUser": "Create User",
+  "FirstName": "Firstname",
+  "LastName": "Last name",
+  "BloodTypeLabel": "Blood Type (example: +2)"
+}

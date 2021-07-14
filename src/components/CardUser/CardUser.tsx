@@ -1,8 +1,18 @@
 import React, { useCallback, useContext } from "react";
 import { makeStyles, createStyles, Theme } from "@material-ui/core/styles";
-import Typography from "@material-ui/core/Typography";
 import { useHistory } from "react-router-dom";
-import { Avatar, Button, Card, CardActionArea, CardActions, CardContent, Paper, Divider } from "@material-ui/core";
+import { useTranslation } from "react-i18next";
+import {
+  Avatar,
+  Button,
+  Card,
+  CardActionArea,
+  CardActions,
+  CardContent,
+  Paper,
+  Divider,
+  Typography,
+} from "@material-ui/core";
 
 import { PathName, User } from "~src/types";
 import { Context } from "~src/context/context";
@@ -34,6 +44,8 @@ const useStyles = makeStyles((theme: Theme) =>
       height: 100,
       margin: theme.spacing(0, 0, 0, 2),
       fontSize: "1rem",
+      wordBreak: "break-all",
+      textAlign: "center",
     },
   })
 );
@@ -50,6 +62,7 @@ export const CardUser: React.FC<User> = ({
 }) => {
   const classes = useStyles();
   const history = useHistory();
+  const { t } = useTranslation();
   const { users, setUsers, setEditUser } = useContext(Context);
 
   const removeUser = useCallback(() => {
@@ -80,19 +93,19 @@ export const CardUser: React.FC<User> = ({
           <Divider />
           <CardContent className={classes.content}>
             <Typography variant="body2" component="p">
-              {`Email:  ${email}`}
+              {`${t("Email")}:  ${email}`}
             </Typography>
             <Typography variant="body2" component="p">
-              {`Year of birth:  ${yearOfBirth}`}
+              {`${t("YearOfBirth")}:  ${yearOfBirth}`}
             </Typography>
             {zodiac && (
               <Typography variant="body2" component="p">
-                {`Zodiac:  ${zodiac}`}
+                {`${t("Zodiac")}:  ${zodiac}`}
               </Typography>
             )}
             {bloodType && (
               <Typography variant="body2" component="p">
-                {`Blood type:  ${bloodType}`}
+                {`${t("BloodType")}:  ${bloodType}`}
               </Typography>
             )}
           </CardContent>
@@ -100,10 +113,10 @@ export const CardUser: React.FC<User> = ({
         <Divider />
         <CardActions className={classes.actions}>
           <Button color="primary" onClick={editUserId}>
-            Edit
+            {t("Edit")}
           </Button>
           <Button color="secondary" onClick={removeUser}>
-            Delete
+            {t("Delete")}
           </Button>
         </CardActions>
       </Card>

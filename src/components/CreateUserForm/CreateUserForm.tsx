@@ -3,22 +3,14 @@ import { useForm, SubmitHandler } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useHistory } from "react-router-dom";
 import { makeStyles, createStyles, Theme } from "@material-ui/core/styles";
-import {
-  Button,
-  TextField,
-  Select,
-  Typography,
-  MenuItem,
-  InputLabel,
-  Paper,
-  Grid,
-  FormControl,
-} from "@material-ui/core";
+import { Button, TextField, Typography, Paper, Grid } from "@material-ui/core";
+import { useTranslation } from "react-i18next";
 
-import { PathName, User, zodiacs } from "~src/types";
+import { PathName, User } from "~src/types";
 import { addNewUser, editCurrentUser, uniqueEmail } from "~src/utils/utils";
 import { Context } from "~src/context/context";
 import { schema } from "~src/utils/schema";
+import { SelectField } from "~components";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -63,6 +55,7 @@ export const CreateUserForm: React.FC = () => {
   const { users, setUsers, editUser, setEditUser } = useContext(Context);
   const classes = useStyles();
   const history = useHistory();
+  const { t } = useTranslation();
   const onSubmit: SubmitHandler<User> = (data) => onSubmitForm(data);
   const edit = Object.keys(editUser).length;
 
@@ -111,7 +104,7 @@ export const CreateUserForm: React.FC = () => {
       </Button>
       <Paper className={classes.paper}>
         <Typography className={classes.title} component="h1" variant="h5">
-          {edit ? "Edit User" : "Create User"}
+          {edit ? t("EditUser") : t("CreateUser")}
         </Typography>
         <form className={classes.form} onSubmit={handleSubmit(onSubmit)}>
           <TextField
@@ -120,7 +113,7 @@ export const CreateUserForm: React.FC = () => {
             defaultValue={edit ? editUser.firstName : null}
             required={!edit}
             id="standard-basic"
-            label={!Boolean(errors.firstName) ? "First name" : errors.firstName?.message}
+            label={!Boolean(errors.firstName) ? t("FirstName") : errors.firstName?.message}
             {...register("firstName")}
           />
           <TextField
@@ -129,7 +122,7 @@ export const CreateUserForm: React.FC = () => {
             defaultValue={edit ? editUser.lastName : null}
             required={!edit}
             id="standard-basic"
-            label={!Boolean(errors.lastName) ? "Last name" : errors.lastName?.message}
+            label={!Boolean(errors.lastName) ? t("LastName") : errors.lastName?.message}
             {...register("lastName")}
           />
           <TextField
@@ -138,7 +131,7 @@ export const CreateUserForm: React.FC = () => {
             className={classes.field}
             required={!edit}
             type="number"
-            label={!Boolean(errors.yearOfBirth) ? "Year of birth" : errors.yearOfBirth?.message}
+            label={!Boolean(errors.yearOfBirth) ? t("YearOfBirth") : errors.yearOfBirth?.message}
             {...register("yearOfBirth")}
           />
           <TextField
@@ -148,36 +141,20 @@ export const CreateUserForm: React.FC = () => {
             required={!edit}
             type="email"
             id="standard-basic"
-            label={!Boolean(errors.email) ? "Email" : errors.email?.message}
+            label={!Boolean(errors.email) ? t("Email") : errors.email?.message}
             {...register("email")}
           />
-          <FormControl className={classes.field}>
-            <InputLabel id="demo-simple-select-label">
-              {!Boolean(errors.zodiac) ? "Zodiac" : errors.zodiac?.message}
-            </InputLabel>
-            <Select
-              error={Boolean(errors.zodiac)}
-              defaultValue=""
-              labelId="demo-simple-select-label"
-              {...register("zodiac")}
-            >
-              {zodiacs.map((zodiac) => (
-                <MenuItem key={zodiac.id} value={zodiac.name}>
-                  {zodiac.name}
-                </MenuItem>
-              ))}
-            </Select>
-          </FormControl>
+          <SelectField errors={errors} register={register} />
           <TextField
             className={classes.field}
             error={Boolean(errors.bloodType)}
             defaultValue={edit ? editUser.bloodType : null}
             id="standard-basic"
-            label={!Boolean(errors.bloodType) ? "Blood Type (example: +2)" : errors.bloodType?.message}
+            label={!Boolean(errors.bloodType) ? t("BloodTypeLabel") : errors.bloodType?.message}
             {...register("bloodType")}
           />
           <Button className={classes.button} type="submit" variant="contained" color="primary">
-            Save
+            {t("Save")}
           </Button>
         </form>
       </Paper>

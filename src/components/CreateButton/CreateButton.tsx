@@ -3,6 +3,7 @@ import { makeStyles, createStyles, Theme } from "@material-ui/core/styles";
 import { Grid, Button } from "@material-ui/core";
 import { Link } from "react-router-dom";
 import { PathName } from "~src/types";
+import { useTranslation } from "react-i18next";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -23,11 +24,12 @@ const useStyles = makeStyles((theme: Theme) =>
 
 export const CreateButton: React.FC = () => {
   const classes = useStyles();
+  const { t } = useTranslation();
   return (
     <Grid className={classes.buttoncontainer} container justifyContent="center" alignItems="center">
       <Link className={classes.link} to={PathName.create}>
         <Button className={classes.button} variant="contained" color="primary">
-          Create
+          {t("Create")}
         </Button>
       </Link>
     </Grid>

@@ -4,15 +4,14 @@ import * as yup from "yup";
 const maxYear = new Date().getFullYear() - 10;
 const minYear = new Date().getFullYear() - 100;
 const bloodTypeRegExp = /^[+||-]{1}[1-4]{1}$/;
+const birthError = "It doesn't look like the year of birth ";
+const bloodError = "It doesn't look like the blood type ";
 
 export const schema = yup.object().shape({
   firstName: yup.string(),
   lastName: yup.string(),
-  yearOfBirth: yup
-    .number()
-    .min(minYear, "It doesn't look like the year of birth ")
-    .max(maxYear, "It doesn't look like the year of birth "),
+  yearOfBirth: yup.number().min(minYear, birthError).max(maxYear, birthError),
   email: yup.string().email(),
   zodiac: yup.mixed<ZodiacType>().oneOf(Object.values(ZodiacType)),
-  bloodType: yup.string().matches(bloodTypeRegExp, "It doesn't look like the blood type "),
+  bloodType: yup.string().matches(bloodTypeRegExp, bloodError),
 });

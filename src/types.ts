@@ -85,6 +85,7 @@ export interface User {
   zodiac?: ZodiacType;
   bloodType?: string;
   avatar: string;
+  img?: string;
 }
 
 export enum PathName {
