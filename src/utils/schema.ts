@@ -1,4 +1,3 @@
-import { ZodiacType, BloodType } from "~src/types";
 import * as yup from "yup";
 
 const today = new Date();
@@ -10,6 +9,4 @@ export const schema = yup.object().shape({
   lastName: yup.string().max(20, nameLengthError),
   birthday: yup.date().max(today, birthError),
   email: yup.string().email(),
-  zodiac: yup.mixed<ZodiacType>().oneOf(Object.values(ZodiacType)),
-  bloodType: yup.mixed<BloodType>().oneOf(Object.values(BloodType)),
 });
