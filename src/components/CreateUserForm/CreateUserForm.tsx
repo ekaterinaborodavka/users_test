@@ -3,14 +3,13 @@ import { useForm, SubmitHandler } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useHistory } from "react-router-dom";
 import { makeStyles, createStyles, Theme } from "@material-ui/core/styles";
-import { Button, TextField, Typography, Paper, Grid } from "@material-ui/core";
+import { Button, TextField, Typography, Paper, Grid, MenuItem } from "@material-ui/core";
 import { useTranslation } from "react-i18next";
 
-import { PathName, User } from "~src/types";
+import { PathName, User, zodiacs, bloods } from "~src/types";
 import { addNewUser, editCurrentUser, uniqueEmail } from "~src/utils/utils";
 import { Context } from "~src/context/context";
 import { schema } from "~src/utils/schema";
-import { SelectField } from "~components";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -39,6 +38,9 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     buttonback: {
       marginBottom: 10,
+    },
+    date: {
+      margin: theme.spacing(2, 1, 0, 1),
     },
   })
 );
@@ -72,7 +74,7 @@ export const CreateUserForm: React.FC = () => {
   const onEditUser = useCallback(
     (data) => {
       const newUsers = editCurrentUser(editUser.id, users, data);
-      setUsers(editCurrentUser(editUser.id, users, data));
+      setUsers(newUsers);
       localStorage.setItem("users", JSON.stringify(newUsers));
       setEditUser({} as User);
       history.push(PathName.home);
@@ -116,6 +118,7 @@ export const CreateUserForm: React.FC = () => {
             label={!Boolean(errors.firstName) ? t("FirstName") : errors.firstName?.message}
             {...register("firstName")}
           />
+
           <TextField
             className={classes.field}
             error={Boolean(errors.lastName)}
@@ -125,15 +128,17 @@ export const CreateUserForm: React.FC = () => {
             label={!Boolean(errors.lastName) ? t("LastName") : errors.lastName?.message}
             {...register("lastName")}
           />
+
           <TextField
-            error={Boolean(errors.yearOfBirth)}
-            defaultValue={edit ? editUser.yearOfBirth : null}
-            className={classes.field}
+            error={Boolean(errors.birthday)}
+            defaultValue={edit ? editUser.birthday : null}
+            className={classes.date}
             required={!edit}
-            type="number"
-            label={!Boolean(errors.yearOfBirth) ? t("YearOfBirth") : errors.yearOfBirth?.message}
-            {...register("yearOfBirth")}
+            label={!Boolean(errors.birthday) ? null : errors.birthday?.message}
+            type="date"
+            {...register("birthday")}
           />
+
           <TextField
             className={classes.field}
             error={Boolean(errors.email)}
@@ -144,15 +149,38 @@ export const CreateUserForm: React.FC = () => {
             label={!Boolean(errors.email) ? t("Email") : errors.email?.message}
             {...register("email")}
           />
-          <SelectField errors={errors} register={register} />
+
+          <TextField
+            className={classes.field}
+            error={Boolean(errors.zodiac)}
+            defaultValue=""
+            select
+            id="standard-basic"
+            label={!Boolean(errors.zodiac) ? t("Zodiac") : errors.zodiac?.message}
+            {...register("zodiac")}
+          >
+            {zodiacs.map((zodiac) => (
+              <MenuItem key={zodiac.id} value={zodiac.name}>
+                {zodiac.name}
+              </MenuItem>
+            ))}
+          </TextField>
+
           <TextField
             className={classes.field}
             error={Boolean(errors.bloodType)}
-            defaultValue={edit ? editUser.bloodType : null}
+            defaultValue=""
+            select
             id="standard-basic"
-            label={!Boolean(errors.bloodType) ? t("BloodTypeLabel") : errors.bloodType?.message}
+            label={!Boolean(errors.bloodType) ? t("BloodType") : errors.bloodType?.message}
             {...register("bloodType")}
-          />
+          >
+            {bloods.map((blood) => (
+              <MenuItem key={blood.id} value={blood.name}>
+                {blood.name}
+              </MenuItem>
+            ))}
+          </TextField>
           <Button className={classes.button} type="submit" variant="contained" color="primary">
             {t("Save")}
           </Button>

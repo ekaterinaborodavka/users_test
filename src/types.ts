@@ -25,6 +25,65 @@ export enum ZodiacType {
   pisces = "pisces",
 }
 
+export enum BloodType {
+  // eslint-disable-next-line no-unused-vars
+  firstPlus = "O(I) Rh+",
+  // eslint-disable-next-line no-unused-vars
+  firstMinus = "O(I) Rh1",
+  // eslint-disable-next-line no-unused-vars
+  secondPlus = "A(II) Rh+",
+  // eslint-disable-next-line no-unused-vars
+  secondMinus = "A(II) Rh-",
+  // eslint-disable-next-line no-unused-vars
+  thirdPlus = "B(III) Rh+",
+  // eslint-disable-next-line no-unused-vars
+  thirdMinus = "B(III) Rh-",
+  // eslint-disable-next-line no-unused-vars
+  fourthPlus = "AB(IV) Rh+",
+  // eslint-disable-next-line no-unused-vars
+  fourthMinus = "AB(IV) Rh-",
+}
+
+export interface SelectOptions {
+  id: number;
+  name: ZodiacType | BloodType;
+}
+
+export const bloods = [
+  {
+    id: 1,
+    name: BloodType.firstPlus,
+  },
+  {
+    id: 2,
+    name: BloodType.firstMinus,
+  },
+  {
+    id: 3,
+    name: BloodType.secondPlus,
+  },
+  {
+    id: 4,
+    name: BloodType.secondMinus,
+  },
+  {
+    id: 5,
+    name: BloodType.thirdPlus,
+  },
+  {
+    id: 6,
+    name: BloodType.thirdMinus,
+  },
+  {
+    id: 7,
+    name: BloodType.fourthPlus,
+  },
+  {
+    id: 8,
+    name: BloodType.fourthMinus,
+  },
+];
+
 export const zodiacs = [
   {
     id: 1,
@@ -81,11 +140,12 @@ export interface User {
   firstName: string;
   lastName: string;
   email: string;
-  yearOfBirth: number;
+  birthday: string;
   zodiac?: ZodiacType;
   bloodType?: string;
   avatar: string;
   img?: string;
+  color: string;
 }
 
 export enum PathName {

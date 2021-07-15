@@ -5,27 +5,40 @@ export const findEditUser = (id: number, users: User[]): User => {
   return users[ind];
 };
 
+const createDateString = (date: string): string => {
+  const dateBirth = new Date(date);
+  return `${dateBirth.getMonth() + 1} / ${dateBirth.getFullYear()}`;
+};
+
 export const editCurrentUser = (id: number, users: User[], data: any): User[] => {
   for (const props in data) {
     if (!data[props]) {
       delete data[props];
     }
   }
-  const newUsers = users.map((user) => {
+
+  if (data?.birthday) {
+    data.birthday = createDateString(data.birthday);
+  }
+
+  const newUser = users.map((user) => {
     if (user.id === id) {
       return { ...user, ...data };
     }
     return user;
   });
-  return newUsers;
+
+  return newUser;
 };
 
 export const createUser = (user: User, users: User[]): User => {
   const { firstName, lastName } = user;
   const avatar = letterAvatar(users, firstName, lastName);
 
+  user.color = "#" + Math.random().toString(16).substring(2, 8).toUpperCase();
   user.id = Date.now();
   user.avatar = avatar;
+  user.birthday = createDateString(user.birthday);
   return user;
 };
 

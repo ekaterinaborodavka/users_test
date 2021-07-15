@@ -1,6 +1,6 @@
 {
   "Save": "Save",
-  "YearOfBirth":"Year of birth",
+  "Birthday":"Birthday",
   "Email": "Email",
   "Zodiac": "Zodiac",
   "BloodType": "Blood type",
@@ -10,6 +10,5 @@
   "EditUser": "Edit User",
   "CreateUser": "Create User",
   "FirstName": "Firstname",
-  "LastName": "Last name",
-  "BloodTypeLabel": "Blood Type (example: +2)"
+  "LastName": "Last name"
 }

@@ -54,11 +54,12 @@ export const CardUser: React.FC<User> = ({
   firstName,
   lastName,
   email,
-  yearOfBirth,
+  birthday,
   zodiac,
   bloodType,
   id,
   avatar,
+  color,
 }) => {
   const classes = useStyles();
   const history = useHistory();
@@ -75,8 +76,6 @@ export const CardUser: React.FC<User> = ({
     setEditUser(findEditUser(id, users));
     history.push(PathName.create);
   }, [id, setEditUser, history, users]);
-
-  const color = "#" + Math.random().toString(16).substring(2, 8).toUpperCase();
 
   return (
     <Paper className={classes.paper}>
@@ -96,7 +95,7 @@ export const CardUser: React.FC<User> = ({
               {`${t("Email")}:  ${email}`}
             </Typography>
             <Typography variant="body2" component="p">
-              {`${t("YearOfBirth")}:  ${yearOfBirth}`}
+              {`${t("Birthday")}:  ${birthday}`}
             </Typography>
             {zodiac && (
               <Typography variant="body2" component="p">
